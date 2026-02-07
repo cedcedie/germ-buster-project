@@ -1,0 +1,107 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfcobodslvb7t"]
+
+[ext_resource type="Script" uid="uid://cm0v8vgxwtvxr" path="res://Scripts/Level3.gd" id="1_level3_script"]
+[ext_resource type="Script" uid="uid://da1ospgp1fvr7" path="res://Scripts/LevelManager.gd" id="2_levelmanager"]
+[ext_resource type="Script" uid="uid://l78sgay1b4kl" path="res://Scripts/InteractableTool.gd" id="3_interactabletool"]
+[ext_resource type="Texture2D" uid="uid://cfh0hpxmvq5c6" path="res://icon.svg" id="4_texture"]
+[ext_resource type="Script" uid="uid://sarsnxppbhmb" path="res://Scripts/DropZone.gd" id="5_dropzone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tool"]
+size = Vector2(64, 64)
+
+[node name="Level3" type="Node2D"]
+script = ExtResource("1_level3_script")
+
+[node name="LevelManager" type="Node" parent="."]
+script = ExtResource("2_levelmanager")
+total_steps = 3
+level_name = "Tooth Brushing"
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.9, 0.9, 0.9, 1)
+position = Vector2(640, 360)
+scale = Vector2(10, 6)
+texture = ExtResource("4_texture")
+
+[node name="MouthOpen" type="Sprite2D" parent="."]
+modulate = Color(0.9, 0.5, 0.5, 1)
+position = Vector2(640, 360)
+scale = Vector2(6, 4)
+texture = ExtResource("4_texture")
+script = ExtResource("5_dropzone")
+valid_tools = Array[String](["Toothbrush"])
+
+[node name="MouthOpen_Teeth_TeethZone1#Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.9, 1)
+scale = Vector2(1, 0.2)
+texture = ExtResource("4_texture")
+
+[node name="MouthOpen_Teeth#TeethZone2" type="Area2D" parent="."]
+position = Vector2(0, 20)
+script = ExtResource("5_dropzone")
+valid_tools = Array[String](["Toothbrush"])
+
+[node name="MouthOpen_Teeth_TeethZone2#Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.9, 1)
+scale = Vector2(0.8, 0.2)
+texture = ExtResource("4_texture")
+
+[node name="MouthOpen_Teeth_TeethZone2#CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 0.2)
+shape = SubResource("RectangleShape2D_tool")
+
+[node name="MouthOpen_Teeth_TeethZone2#Dirt" type="ColorRect" parent="."]
+offset_left = -50.0
+offset_top = -10.0
+offset_right = 50.0
+offset_bottom = 10.0
+color = Color(0.4, 0.3, 0.1, 0.8)
+
+[node name="Toothbrush" type="Area2D" parent="."]
+position = Vector2(200, 200)
+script = ExtResource("3_interactabletool")
+tool_name = "Toothbrush"
+
+[node name="Sprite2D" type="Sprite2D" parent="Toothbrush"]
+modulate = Color(0.2, 0.2, 0.8, 1)
+texture = ExtResource("4_texture")
+script = ExtResource("5_dropzone")
+valid_tools = Array[String](["Toothpaste"])
+
+[node name="PasteVisual" type="ColorRect" parent="Toothbrush"]
+visible = false
+offset_left = -10.0
+offset_top = -30.0
+offset_right = 10.0
+offset_bottom = -10.0
+
+[node name="Toothbrush_Bristles#CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.2)
+shape = SubResource("RectangleShape2D_tool")
+
+[node name="Toothpaste" type="Area2D" parent="."]
+position = Vector2(200, 400)
+script = ExtResource("3_interactabletool")
+tool_name = "Toothpaste"
+
+[node name="Sprite2D" type="Sprite2D" parent="Toothpaste"]
+modulate = Color(1, 0.2, 0.2, 1)
+texture = ExtResource("4_texture")
+
+[node name="Cup" type="Area2D" parent="."]
+position = Vector2(1080, 500)
+script = ExtResource("5_dropzone")
+valid_tools = Array[String](["Toothbrush"])
+
+[node name="Sprite2D" type="Sprite2D" parent="Cup"]
+modulate = Color(0.2, 0.8, 0.9, 0.5)
+texture = ExtResource("4_texture")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ChecklistLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 60.0
+text = "Level 3: Tooth Brushing"

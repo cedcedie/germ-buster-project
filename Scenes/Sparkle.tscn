@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://sparkle123"]
+
+[ext_resource type="Script" path="res://Scripts/Sparkle.gd" id="1_sparkle"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="2_texture"]
+
+[node name="Sparkle" type="CPUParticles2D"]
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("2_texture")
+emission_shape = 1
+emission_sphere_radius = 20.0
+gravity = Vector2(0, -50)
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+color = Color(1, 1, 0.5, 1) # Yellow/Gold
+script = ExtResource("1_sparkle")

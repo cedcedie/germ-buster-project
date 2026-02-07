@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1e2f3a4b5c6"]
+
+[ext_resource type="Script" path="res://Scripts/Level1.gd" id="1_level1_script"]
+[ext_resource type="Script" path="res://Scripts/LevelManager.gd" id="2_levelmanager"]
+[ext_resource type="Script" path="res://Scripts/InteractableTool.gd" id="3_interactabletool"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="4_texture"]
+[ext_resource type="Script" path="res://Scripts/DropZone.gd" id="5_dropzone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_faucet"]
+size = Vector2(80, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_soap"]
+size = Vector2(64, 64)
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_level1_script")
+
+[node name="LevelManager" type="Node" parent="."]
+script = ExtResource("2_levelmanager")
+total_steps = 6
+level_name = "Hand Washing"
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(10, 6)
+texture = ExtResource("4_texture")
+modulate = Color(0.9, 0.9, 0.9, 1)
+
+[node name="Faucet" type="Area2D" parent="."]
+position = Vector2(640, 200)
+script = ExtResource("3_interactabletool")
+tool_name = "Faucet"
+is_draggable = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Faucet"]
+texture = ExtResource("4_texture")
+modulate = Color(0.5, 0.5, 0.5, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Faucet"]
+shape = SubResource("RectangleShape2D_faucet")
+
+[node name="WaterStream" type="ColorRect" parent="Faucet"]
+visible = false
+offset_left = -10.0
+offset_top = 40.0
+offset_right = 10.0
+offset_bottom = 300.0
+color = Color(0, 0.5, 1, 0.6)
+
+[node name="Soap" type="Area2D" parent="."]
+position = Vector2(200, 500)
+script = ExtResource("3_interactabletool")
+tool_name = "Soap"
+
+[node name="Sprite2D" type="Sprite2D" parent="Soap"]
+texture = ExtResource("4_texture")
+modulate = Color(1, 0.5, 0.5, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Soap"]
+shape = SubResource("RectangleShape2D_soap")
+
+[node name="Hands" type="Area2D" parent="."]
+position = Vector2(640, 500)
+script = ExtResource("5_dropzone")
+valid_tools = Array[String](["Soap"])
+
+[node name="Sprite2D" type="Sprite2D" parent="Hands"]
+texture = ExtResource("4_texture")
+modulate = Color(0.8, 0.6, 0.4, 1)
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hands"]
+shape = SubResource("RectangleShape2D_soap")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ChecklistLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 60.0
+text = "Level 1: Hand Washing"

@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="germBusterProject"
+run/main_scene="uid://b4a3c1d2e5f6"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://Scripts/GameManager.gd"
 
 [rendering]
 

@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=3 uid="uid://e2f3a4b5c6d7"]
+
+[ext_resource type="Script" path="res://Scripts/Level2.gd" id="1_level2_script"]
+[ext_resource type="Script" path="res://Scripts/LevelManager.gd" id="2_levelmanager"]
+[ext_resource type="Script" path="res://Scripts/InteractableTool.gd" id="3_interactabletool"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="4_texture"]
+[ext_resource type="Script" path="res://Scripts/DropZone.gd" id="5_dropzone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tool"]
+size = Vector2(64, 64)
+
+[node name="Level2" type="Node2D"]
+script = ExtResource("1_level2_script")
+
+[node name="LevelManager" type="Node" parent="."]
+script = ExtResource("2_levelmanager")
+total_steps = 2
+level_name = "Nail Cutting"
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(10, 6)
+texture = ExtResource("4_texture")
+modulate = Color(0.9, 0.9, 0.9, 1)
+
+[node name="Hand" type="Sprite2D" parent="."]
+position = Vector2(640, 500)
+texture = ExtResource("4_texture")
+modulate = Color(0.8, 0.6, 0.4, 1)
+scale = Vector2(3, 3)
+
+[node name="Nail1" type="Area2D" parent="Hand"]
+position = Vector2(-40, -40)
+script = ExtResource("5_dropzone")
+valid_tools = Array[String](["NailCutter", "NailFile"])
+
+[node name="Sprite2D" type="Sprite2D" parent="Hand/Nail1"]
+scale = Vector2(0.2, 0.3)
+texture = ExtResource("4_texture")
+modulate = Color(1, 0.9, 0.8, 1) # Nail color
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Nail1"]
+shape = SubResource("RectangleShape2D_tool")
+scale = Vector2(0.3, 0.3)
+
+[node name="Nail2" type="Area2D" parent="Hand"]
+position = Vector2(0, -50)
+script = ExtResource("5_dropzone")
+valid_tools = Array[String](["NailCutter", "NailFile"])
+
+[node name="Sprite2D" type="Sprite2D" parent="Hand/Nail2"]
+scale = Vector2(0.2, 0.3)
+texture = ExtResource("4_texture")
+modulate = Color(1, 0.9, 0.8, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Nail2"]
+shape = SubResource("RectangleShape2D_tool")
+scale = Vector2(0.3, 0.3)
+
+[node name="Nail3" type="Area2D" parent="Hand"]
+position = Vector2(40, -40)
+script = ExtResource("5_dropzone")
+valid_tools = Array[String](["NailCutter", "NailFile"])
+
+[node name="Sprite2D" type="Sprite2D" parent="Hand/Nail3"]
+scale = Vector2(0.2, 0.3)
+texture = ExtResource("4_texture")
+modulate = Color(1, 0.9, 0.8, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Nail3"]
+shape = SubResource("RectangleShape2D_tool")
+scale = Vector2(0.3, 0.3)
+
+[node name="NailCutter" type="Area2D" parent="."]
+position = Vector2(200, 200)
+script = ExtResource("3_interactabletool")
+tool_name = "NailCutter"
+
+[node name="Sprite2D" type="Sprite2D" parent="NailCutter"]
+texture = ExtResource("4_texture")
+modulate = Color(0.3, 0.3, 0.3, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NailCutter"]
+shape = SubResource("RectangleShape2D_tool")
+
+[node name="NailFile" type="Area2D" parent="."]
+position = Vector2(1000, 200)
+script = ExtResource("3_interactabletool")
+tool_name = "NailFile"
+
+[node name="Sprite2D" type="Sprite2D" parent="NailFile"]
+texture = ExtResource("4_texture")
+modulate = Color(0.7, 0.7, 0.7, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NailFile"]
+shape = SubResource("RectangleShape2D_tool")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ChecklistLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 60.0
+text = "Level 2: Nail Care"

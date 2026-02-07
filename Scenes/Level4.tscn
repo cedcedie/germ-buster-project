@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://1b2c3d4e5f6"]
+
+[ext_resource type="Script" path="res://Scripts/Level4.gd" id="1_level4_script"]
+[ext_resource type="Script" path="res://Scripts/LevelManager.gd" id="2_levelmanager"]
+[ext_resource type="Script" path="res://Scripts/InteractableTool.gd" id="3_interactabletool"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="4_texture"]
+[ext_resource type="Script" path="res://Scripts/DropZone.gd" id="5_dropzone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tool"]
+size = Vector2(64, 64)
+
+[node name="Level4" type="Node2D"]
+script = ExtResource("1_level4_script")
+
+[node name="LevelManager" type="Node" parent="."]
+script = ExtResource("2_levelmanager")
+total_steps = 2
+level_name = "Flossing"
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(10, 6)
+texture = ExtResource("4_texture")
+modulate = Color(0.9, 0.9, 0.9, 1)
+
+[node name="MouthOpen" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(6, 4)
+texture = ExtResource("4_texture")
+modulate = Color(0.9, 0.5, 0.5, 1) # Pink mouth
+
+[node name="Teeth" type="Node2D" parent="MouthOpen"]
+
+# Gaps between teeth
+[node name="Gap1" type="Area2D" parent="MouthOpen/Teeth"]
+position = Vector2(-20, 0)
+script = ExtResource("5_dropzone")
+valid_tools = Array[String](["FlossPiece"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouthOpen/Teeth/Gap1"]
+shape = SubResource("RectangleShape2D_tool")
+scale = Vector2(0.2, 0.8)
+
+[node name="Dirt" type="ColorRect" parent="MouthOpen/Teeth/Gap1"]
+offset_left = -5.0
+offset_top = -25.0
+offset_right = 5.0
+offset_bottom = 25.0
+color = Color(0.3, 0.5, 0.2, 0.8) # Greenish 'stuck food'
+
+[node name="Gap2" type="Area2D" parent="MouthOpen/Teeth"]
+position = Vector2(20, 0)
+script = ExtResource("5_dropzone")
+valid_tools = Array[String](["FlossPiece"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouthOpen/Teeth/Gap2"]
+shape = SubResource("RectangleShape2D_tool")
+scale = Vector2(0.2, 0.8)
+
+[node name="Dirt" type="ColorRect" parent="MouthOpen/Teeth/Gap2"]
+offset_left = -5.0
+offset_top = -25.0
+offset_right = 5.0
+offset_bottom = 25.0
+color = Color(0.3, 0.5, 0.2, 0.8)
+
+# Floss Dispenser
+[node name="FlossDispenser" type="Area2D" parent="."]
+position = Vector2(200, 300)
+script = ExtResource("3_interactabletool")
+tool_name = "FlossDispenser"
+is_draggable = false
+
+[node name="Sprite2D" type="Sprite2D" parent="FlossDispenser"]
+texture = ExtResource("4_texture")
+modulate = Color(0.9, 0.9, 1, 1) # White box
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FlossDispenser"]
+shape = SubResource("RectangleShape2D_tool")
+
+# The actual piece of floss we will drag
+[node name="FlossPiece" type="Area2D" parent="."]
+position = Vector2(200, 300)
+visible = false
+script = ExtResource("3_interactabletool")
+tool_name = "FlossPiece"
+
+[node name="Sprite2D" type="Sprite2D" parent="FlossPiece"]
+scale = Vector2(0.1, 1.0)
+texture = ExtResource("4_texture")
+modulate = Color(1, 1, 1, 1) # White string
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FlossPiece"]
+shape = SubResource("RectangleShape2D_tool")
+scale = Vector2(0.2, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ChecklistLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 60.0
+text = "Level 4: Flossing"
