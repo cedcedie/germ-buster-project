@@ -11,60 +11,132 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mainmenu")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.2, 0.6, 0.8, 1)
+color = Color(0.8, 0.95, 1, 1)
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="BackgroundGradient" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -100.0
-offset_top = 80.0
-offset_right = 100.0
-offset_bottom = 120.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 48
+grow_vertical = 2
+color = Color(0.6, 0.85, 0.95, 0.5)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="TitleSection" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer/TitleSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.5, 0.8, 1)
+theme_override_font_sizes/font_size = 64
 text = "Germ Buster"
 horizontal_alignment = 1
 
-[node name="StartButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -20.0
-offset_right = 80.0
-offset_bottom = 40.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="SubtitleLabel" type="Label" parent="CenterContainer/VBoxContainer/TitleSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.6, 0.7, 1)
 theme_override_font_sizes/font_size = 24
+text = "Learn Proper Hygiene"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(280, 55)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0.9, 1)
+theme_override_font_sizes/font_size = 28
 text = "Start Game"
 
-[node name="QuitButton" type="Button" parent="."]
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(280, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+text = "Quit"
+
+[node name="Spacer2" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="InfoPanel" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="InfoVBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer/InfoPanel"]
+layout_mode = 2
+
+[node name="InfoTitle" type="Label" parent="CenterContainer/VBoxContainer/InfoPanel/InfoVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.5, 0.8, 1)
+theme_override_font_sizes/font_size = 18
+text = "Featured Level"
+horizontal_alignment = 1
+
+[node name="InfoText" type="Label" parent="CenterContainer/VBoxContainer/InfoPanel/InfoVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Level 1: Hand Washing
+Master the 6-step technique"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Footer" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -60.0
-offset_top = -150.0
-offset_right = 60.0
-offset_bottom = -110.0
+offset_left = -150.0
+offset_top = -40.0
+offset_right = 150.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 24
-text = "Quit"
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "v1.0 - Educational Health Game"
+horizontal_alignment = 1
 
-[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
-[connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
+[node name="AudioPlayers" type="Node" parent="."]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+autoplay = true
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonsContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonsContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/ButtonsContainer/StartButton" to="." method="_on_button_hover" binds= [true]]
+[connection signal="mouse_exited" from="CenterContainer/VBoxContainer/ButtonsContainer/StartButton" to="." method="_on_button_hover" binds= [false]]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/ButtonsContainer/QuitButton" to="." method="_on_button_hover" binds= [true]]
+[connection signal="mouse_exited" from="CenterContainer/VBoxContainer/ButtonsContainer/QuitButton" to="." method="_on_button_hover" binds= [false]]

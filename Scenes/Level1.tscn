@@ -1,76 +1,180 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1e2f3a4b5c6"]
+[gd_scene load_steps=34 format=3 uid="uid://bhlq41byt1dhj"]
 
-[ext_resource type="Script" path="res://Scripts/Level1.gd" id="1_level1_script"]
-[ext_resource type="Script" path="res://Scripts/LevelManager.gd" id="2_levelmanager"]
-[ext_resource type="Script" path="res://Scripts/InteractableTool.gd" id="3_interactabletool"]
-[ext_resource type="Texture2D" path="res://icon.svg" id="4_texture"]
-[ext_resource type="Script" path="res://Scripts/DropZone.gd" id="5_dropzone"]
+[ext_resource type="Script" uid="uid://bukxje3vc7qf2" path="res://Scripts/Level1.gd" id="1_level1_script"]
+[ext_resource type="Texture2D" uid="uid://rsac4txrl3yh" path="res://6621197f67-834e-c5a7-ec0a-d75ecfe61f.jpg" id="2_6ll4n"]
+[ext_resource type="Script" uid="uid://da1ospgp1fvr7" path="res://Scripts/LevelManager.gd" id="2_levelmanager"]
+[ext_resource type="Texture2D" uid="uid://biu1q07m5yxef" path="res://Assets/Level 1/Running water revise.png" id="5_bdlbp"]
+[ext_resource type="Texture2D" uid="uid://diu0qml5hu2oi" path="res://Assets/Level 1/faucet.png" id="6_faucet"]
+[ext_resource type="Texture2D" uid="uid://dmmktmwc3glxv" path="res://Assets/Level 1/default soap.png" id="7_kylad"]
+[ext_resource type="Texture2D" uid="uid://6b4xa3neadlp" path="res://Assets/Level 1/two hands.png" id="8_hands"]
+[ext_resource type="Texture2D" uid="uid://demgm51tymss7" path="res://Assets/Level 1/soap-animation.png" id="9_soap"]
+[ext_resource type="Texture2D" uid="uid://bb170cwjtl8a8" path="res://Assets/Level 1/toothbrush.png" id="10_bdlbp"]
+[ext_resource type="Texture2D" uid="uid://b2ac88h0r8bs4" path="res://Assets/Level 1/rubbing hands.png" id="10_soap_hands"]
+[ext_resource type="Texture2D" uid="uid://c78co18unct6c" path="res://Assets/Level 1/hands bubble.png" id="11_2h8qs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_joc8x"]
+atlas = ExtResource("6_faucet")
+region = Rect2(0, 0, 200, 180)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t3or0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_joc8x")
+}],
+"loop": true,
+"name": &"faucet_off",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_faucet"]
-size = Vector2(80, 80)
+size = Vector2(200, 180)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_soap"]
-size = Vector2(64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubfni"]
+atlas = ExtResource("5_bdlbp")
+region = Rect2(0, 0, 503, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ug0sv"]
+atlas = ExtResource("5_bdlbp")
+region = Rect2(503, 0, 503, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wsr5"]
+atlas = ExtResource("5_bdlbp")
+region = Rect2(1006, 0, 503, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgorv"]
+atlas = ExtResource("5_bdlbp")
+region = Rect2(1509, 0, 503, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ulvkb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubfni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ug0sv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wsr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgorv")
+}],
+"loop": true,
+"name": &"faucet_impact",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hands_dropzone"]
+radius = 109.94958
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3or0"]
+atlas = ExtResource("9_soap")
+region = Rect2(0, 0, 80, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysn8j"]
+atlas = ExtResource("9_soap")
+region = Rect2(80, 0, 80, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ll4n"]
+atlas = ExtResource("9_soap")
+region = Rect2(160, 0, 80, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kylad"]
+atlas = ExtResource("9_soap")
+region = Rect2(240, 0, 80, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdlbp"]
+atlas = ExtResource("7_kylad")
+region = Rect2(0, 0, 80, 46)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2h8qs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3or0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysn8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ll4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kylad")
+}],
+"loop": true,
+"name": &"soap_apply",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdlbp")
+}],
+"loop": true,
+"name": &"soap_default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_soap"]
+radius = 18.823532
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2h8qs"]
+atlas = ExtResource("10_soap_hands")
+region = Rect2(0, 0, 912, 725)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpty4"]
+atlas = ExtResource("10_soap_hands")
+region = Rect2(912, 0, 912, 725)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jj8j"]
+atlas = ExtResource("10_soap_hands")
+region = Rect2(1824, 0, 912, 725)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06um6"]
+atlas = ExtResource("10_soap_hands")
+region = Rect2(2736, 0, 912, 725)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ubfni"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2h8qs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpty4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6jj8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06um6")
+}],
+"loop": true,
+"name": &"rub_hands",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_toothbrush"]
+radius = 35.0
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_level1_script")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.6, 0.6, 0.6, 1)
+offset_left = -456.0
+offset_top = -744.0
+offset_right = 1424.0
+offset_bottom = 640.0
+texture = ExtResource("2_6ll4n")
+expand_mode = 1
 
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("2_levelmanager")
 total_steps = 6
 level_name = "Hand Washing"
-
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(640, 360)
-scale = Vector2(10, 6)
-texture = ExtResource("4_texture")
-modulate = Color(0.9, 0.9, 0.9, 1)
-
-[node name="Faucet" type="Area2D" parent="."]
-position = Vector2(640, 200)
-script = ExtResource("3_interactabletool")
-tool_name = "Faucet"
-is_draggable = false
-
-[node name="Sprite2D" type="Sprite2D" parent="Faucet"]
-texture = ExtResource("4_texture")
-modulate = Color(0.5, 0.5, 0.5, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Faucet"]
-shape = SubResource("RectangleShape2D_faucet")
-
-[node name="WaterStream" type="ColorRect" parent="Faucet"]
-visible = false
-offset_left = -10.0
-offset_top = 40.0
-offset_right = 10.0
-offset_bottom = 300.0
-color = Color(0, 0.5, 1, 0.6)
-
-[node name="Soap" type="Area2D" parent="."]
-position = Vector2(200, 500)
-script = ExtResource("3_interactabletool")
-tool_name = "Soap"
-
-[node name="Sprite2D" type="Sprite2D" parent="Soap"]
-texture = ExtResource("4_texture")
-modulate = Color(1, 0.5, 0.5, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Soap"]
-shape = SubResource("RectangleShape2D_soap")
-
-[node name="Hands" type="Area2D" parent="."]
-position = Vector2(640, 500)
-script = ExtResource("5_dropzone")
-valid_tools = Array[String](["Soap"])
-
-[node name="Sprite2D" type="Sprite2D" parent="Hands"]
-texture = ExtResource("4_texture")
-modulate = Color(0.8, 0.6, 0.4, 1)
-scale = Vector2(2, 2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hands"]
-shape = SubResource("RectangleShape2D_soap")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -80,3 +184,217 @@ offset_top = 20.0
 offset_right = 200.0
 offset_bottom = 60.0
 text = "Level 1: Hand Washing"
+
+[node name="InstructionLabel" type="Label" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -376.0
+offset_top = -316.0
+offset_right = -56.0
+offset_bottom = -266.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_sizes/font_size = 24
+text = "Click the faucet!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WetHandsButton" type="Button" parent="UI"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -80.0
+offset_right = 75.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Wet Hands"
+
+[node name="RubHandsButton" type="Button" parent="UI"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -80.0
+offset_right = 75.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Rub Hands"
+
+[node name="RinseHandsButton" type="Button" parent="UI"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -80.0
+offset_right = 75.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Rinse Hands"
+
+[node name="CompletionModal" type="ColorRect" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Panel" type="Panel" parent="UI/CompletionModal"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -280.0
+offset_right = 350.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CompletionModal/Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="UI/CompletionModal/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.2, 1)
+theme_override_font_sizes/font_size = 40
+text = "🎉 Level Complete! 🎉"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MessageLabel" type="Label" parent="UI/CompletionModal/Panel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "🧼 Why Proper Handwashing Matters 🧼
+
+✅ Removes 99.9% of germs and bacteria
+✅ Prevents spread of illnesses like colds and flu
+✅ Protects you and those around you
+✅ Most effective when done with soap and water
+✅ Critical before eating and after restroom use
+✅ Takes only 20-30 seconds to save lives!
+
+📚 You've Mastered the 6-Step Technique:
+1. Turn on faucet
+2. Wet hands thoroughly
+3. Apply soap properly
+4. Rub hands for 20+ seconds
+5. Rinse completely
+6. Turn off faucet
+
+🌟 Great job keeping yourself and others healthy! 🌟"
+autowrap_mode = 3
+
+[node name="HSeparator2" type="HSeparator" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Continue to Menu"
+
+[node name="Faucet" type="Area2D" parent="."]
+position = Vector2(533, 179)
+scale = Vector2(0.8, 0.8)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Faucet"]
+sprite_frames = SubResource("SpriteFrames_t3or0")
+animation = &"faucet_off"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Faucet"]
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("RectangleShape2D_faucet")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Faucet"]
+position = Vector2(152, 56)
+sprite_frames = SubResource("SpriteFrames_ulvkb")
+animation = &"faucet_impact"
+
+[node name="TwoHands" type="Sprite2D" parent="."]
+position = Vector2(584, 816)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("8_hands")
+
+[node name="HandsDropZone" type="Area2D" parent="TwoHands"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TwoHands/HandsDropZone"]
+shape = SubResource("CircleShape2D_hands_dropzone")
+
+[node name="Soap" type="Area2D" parent="."]
+position = Vector2(85.99999, 296)
+scale = Vector2(1.7, 1.7)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Soap"]
+sprite_frames = SubResource("SpriteFrames_2h8qs")
+animation = &"soap_default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Soap"]
+shape = SubResource("CircleShape2D_soap")
+
+[node name="RubbingHands" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(584, 496)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_ubfni")
+animation = &"rub_hands"
+
+[node name="Toothbrush" type="Area2D" parent="."]
+position = Vector2(112, 400.00003)
+scale = Vector2(1.3, 1.3)
+
+[node name="Sprite2D" type="Sprite2D" parent="Toothbrush"]
+texture = ExtResource("10_bdlbp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Toothbrush"]
+shape = SubResource("CircleShape2D_toothbrush")
+
+[node name="SoapHands" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(584, 496)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("11_2h8qs")
+
+[node name="AudioPlayers" type="Node" parent="."]
+
+[node name="FaucetLoop" type="AudioStreamPlayer" parent="AudioPlayers"]
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+autoplay = true
