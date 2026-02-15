@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bhlq41byt1dhj"]
+[gd_scene load_steps=35 format=3 uid="uid://bhlq41byt1dhj"]
 
 [ext_resource type="Script" uid="uid://bukxje3vc7qf2" path="res://Scripts/Level1.gd" id="1_level1_script"]
 [ext_resource type="Texture2D" uid="uid://rsac4txrl3yh" path="res://6621197f67-834e-c5a7-ec0a-d75ecfe61f.jpg" id="2_6ll4n"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bb170cwjtl8a8" path="res://Assets/Level 1/toothbrush.png" id="10_bdlbp"]
 [ext_resource type="Texture2D" uid="uid://b2ac88h0r8bs4" path="res://Assets/Level 1/rubbing hands.png" id="10_soap_hands"]
 [ext_resource type="Texture2D" uid="uid://c78co18unct6c" path="res://Assets/Level 1/hands bubble.png" id="11_2h8qs"]
+[ext_resource type="PackedScene" uid="uid://bjq563tf0bk7j" path="res://Scenes/DialogueBox.tscn" id="DialogueBox_scene"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_joc8x"]
 atlas = ExtResource("6_faucet")
@@ -178,6 +179,12 @@ level_name = "Hand Washing"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="DialogueBox" parent="UI" instance=ExtResource("DialogueBox_scene")]
+
+[node name="AnimatedSprite2D" parent="UI/DialogueBox/background_face" index="0"]
+position = Vector2(41, 42)
+scale = Vector2(1.4, 1.4)
+
 [node name="ChecklistLabel" type="Label" parent="UI"]
 offset_left = 20.0
 offset_top = 20.0
@@ -185,23 +192,19 @@ offset_right = 200.0
 offset_bottom = 60.0
 text = "Level 1: Hand Washing"
 
-[node name="InstructionLabel" type="Label" parent="UI"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -376.0
-offset_top = -316.0
-offset_right = -56.0
-offset_bottom = -266.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 0.3, 1)
-theme_override_font_sizes/font_size = 24
-text = "Click the faucet!"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="TimerLabel" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 28
+text = "Time: 10s"
+horizontal_alignment = 2
 
 [node name="WetHandsButton" type="Button" parent="UI"]
 visible = false
@@ -398,3 +401,9 @@ texture = ExtResource("11_2h8qs")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
 autoplay = true
+
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[editable path="UI/DialogueBox"]

@@ -14,7 +14,9 @@ extends Node2D
 @onready var wet_hands_button = $UI/WetHandsButton
 @onready var rub_hands_button = $UI/RubHandsButton
 @onready var rinse_hands_button = $UI/RinseHandsButton
-@onready var instruction_label = $UI/InstructionLabel
+@onready var dialogue_box = $UI/DialogueBox
+@onready var timer_label = $UI/TimerLabel
+@onready var game_timer = $GameTimer
 @onready var completion_modal = $UI/CompletionModal
 @onready var continue_button = $UI/CompletionModal/Panel/VBoxContainer/ContinueButton
 
@@ -88,6 +90,21 @@ func _ready():
 	soap_hands.modulate.a = 0
 	rubbing_hands.modulate.a = 0
 	
+	# Force apply universal font to critical UI elements
+	var game_font = load("res://Daily Vibes.otf")
+	if game_font:
+		checklist_label.add_theme_font_override("font", game_font)
+		timer_label.add_theme_font_override("font", game_font)
+		wet_hands_button.add_theme_font_override("font", game_font)
+		rub_hands_button.add_theme_font_override("font", game_font)
+		rinse_hands_button.add_theme_font_override("font", game_font)
+	
+	game_timer.timeout.connect(_on_timer_timeout)
+	
+	# Initial instruction
+	timer_label.visible = false # Hide timer initially, show only after intro
+	update_instruction_animated("Hi there! Our hands are a bit dirty. Can you help me turn on the water? Just click the faucet!")
+	
 	update_ui_text()
 
 # ===== ANIMATION HELPER FUNCTIONS =====
@@ -99,9 +116,9 @@ func setup_button_animations(button: Button):
 func animate_button_hover(button: Button, is_hovering: bool):
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_BACK)
-	var target_scale = Vector2(1.1, 1.1) if is_hovering else Vector2(1.0, 1.0)
-	tween.tween_property(button, "scale", target_scale, 0.2)
+	tween.set_trans(Tween.TRANS_ELASTIC) # Bouncier effect
+	var target_scale = Vector2(1.2, 1.2) if is_hovering else Vector2(1.0, 1.0)
+	tween.tween_property(button, "scale", target_scale, 0.4)
 
 func fade_out_button(button: Button):
 	play_sfx(button_click_sound)
@@ -144,13 +161,35 @@ func shake_sprite(sprite: Node2D, strength: float = 10.0, duration: float = 0.5)
 		tween.tween_property(sprite, "position", original_pos + offset, duration / 16.0)
 	tween.tween_property(sprite, "position", original_pos, duration / 16.0)
 
-func update_instruction_animated(text: String):
-	var tween = create_tween()
-	tween.tween_property(instruction_label, "modulate:a", 0.0, 0.2)
-	await tween.finished
-	instruction_label.text = text
-	tween = create_tween()
-	tween.tween_property(instruction_label, "modulate:a", 1.0, 0.2)
+func update_instruction_animated(text: String, type: String = "talking"):
+	# Safeguard: Always stop the timer the moment a dialogue starts
+	game_timer.stop()
+	
+	# Hide timer during dialogue to avoid confusion
+	timer_label.visible = false
+	
+	# Reset timer internal state
+	timer_label.text = "Time: 10s"
+	game_timer.wait_time = 10.0
+	
+	# Show text and auto-hide after 3 seconds
+	dialogue_box.show_text(text, type, 3.0)
+	
+	# Wait for the dialogue to completely disappear before starting the timer
+	if not dialogue_box.dialogue_hidden.is_connected(resume_timer_after_dialogue):
+		dialogue_box.dialogue_hidden.connect(resume_timer_after_dialogue, CONNECT_ONE_SHOT)
+
+func resume_timer_after_dialogue():
+	# Only start timer if the level isn't complete and we're not in an animation state
+	if level_manager.current_step < 5:
+		timer_label.visible = true # Show timer only when action is needed
+		game_timer.start()
+		print("Timer resumed after dialogue hidden.")
+
+func _on_timer_timeout():
+	# Retry level logic
+	print("Time's up! Retrying level...")
+	get_tree().reload_current_scene()
 
 # ===== AUDIO HELPER FUNCTIONS =====
 
@@ -191,7 +230,7 @@ func update_ui_text():
 	checklist_label.text = text
 
 func update_instruction(text: String):
-	instruction_label.text = text
+	dialogue_box.show_text(text)
 
 # ===== PHASE 1: TURN ON FAUCET =====
 
@@ -206,6 +245,12 @@ func _on_faucet_clicked(_viewport, event, _shape_idx):
 			faucet_water_sprite.play("faucet_impact")
 			start_faucet_loop()
 			play_sfx(button_click_sound)
+			
+			# Visual pop effect
+			var pop_tween = create_tween()
+			pop_tween.tween_property(faucet_sprite, "scale", Vector2(1.2, 1.2), 0.1)
+			pop_tween.tween_property(faucet_sprite, "scale", Vector2(1.0, 1.0), 0.1)
+			
 			level_manager.complete_step(0)
 			print("Faucet turned on!")
 		# Step 6: Turn off faucet
@@ -216,6 +261,12 @@ func _on_faucet_clicked(_viewport, event, _shape_idx):
 			faucet_sprite.play("faucet_off")
 			stop_faucet_loop()
 			play_sfx(button_click_sound)
+			
+			# Visual pop effect
+			var pop_tween = create_tween()
+			pop_tween.tween_property(faucet_sprite, "scale", Vector2(1.2, 1.2), 0.1)
+			pop_tween.tween_property(faucet_sprite, "scale", Vector2(1.0, 1.0), 0.1)
+			
 			level_manager.complete_step(5)
 			print("Faucet turned off!")
 			# Show completion modal
@@ -235,6 +286,7 @@ func animate_hands_up():
 	two_hands.modulate.a = 0
 	two_hands.visible = true
 	
+	game_timer.stop() # Stop timer for movement animation
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_ease(Tween.EASE_IN_OUT)
@@ -244,6 +296,7 @@ func animate_hands_up():
 	await tween.finished
 	
 	level_manager.complete_step(1)
+	game_timer.start() # Resume for next step (drag soap)
 	print("Hands are wet!")
 
 # ===== PHASE 3: SOAP DRAG AND DROP =====
@@ -293,6 +346,12 @@ func _process(delta):
 		soap_area.global_position = get_global_mouse_position() + soap_offset
 	if is_dragging_toothbrush:
 		toothbrush_area.global_position = get_global_mouse_position() + toothbrush_offset
+		
+	# Update timer display
+	if game_timer.time_left > 0:
+		timer_label.text = "Time: %ds" % int(ceil(game_timer.time_left))
+	else:
+		timer_label.text = "Time's Up!"
 
 func _on_item_dropped_on_hands(area: Area2D):
 	if level_manager.current_step != 2:
@@ -303,15 +362,15 @@ func _on_item_dropped_on_hands(area: Area2D):
 		is_dragging_toothbrush = false
 		play_sfx(wrong_item_sound)
 		shake_sprite(toothbrush_area, 15.0, 0.5)
-		update_instruction_animated("Wrong item! Use the soap, not the toothbrush!")
+		update_instruction_animated("Oopsie! That's a toothbrush. We use that for our teeth, but right now we need SOAP for our hands!", "wrong")
 		print("Wrong item - toothbrush!")
 		# Reset toothbrush position
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(2.5).timeout
 		var tween = create_tween()
 		tween.tween_property(toothbrush_area, "position", Vector2(112, 400), 0.5)
 		await tween.finished
 		if level_manager.current_step == 2:
-			update_instruction_animated("Drag the soap to your hands!")
+			update_instruction_animated("Can you find the soap and drag it to your hands?", "talking")
 		return
 	
 	# Check if soap was dropped
@@ -320,9 +379,15 @@ func _on_item_dropped_on_hands(area: Area2D):
 		print("Soap applied to hands!")
 		update_instruction_animated("Applying soap...")
 		
+		# Visual pop effect for soap
+		var pop_tween = create_tween()
+		pop_tween.tween_property(soap_area, "scale", Vector2(2.2, 2.2), 0.1)
+		pop_tween.tween_property(soap_area, "scale", Vector2(1.7, 1.7), 0.1)
+		
 		# Play soap apply animation on the soap sprite
 		soap_sprite.play("soap_apply")
 		
+		game_timer.stop() # Stop for soap application animation
 		# Wait 5 seconds for soap animation
 		await get_tree().create_timer(5.0).timeout
 		
@@ -333,6 +398,7 @@ func _on_item_dropped_on_hands(area: Area2D):
 		
 		# Complete step 3
 		level_manager.complete_step(2)
+		game_timer.start() # Resume for rubbing
 		print("Soap application complete!")
 
 # ===== PHASE 4: RUB HANDS =====
@@ -347,6 +413,7 @@ func _on_rub_hands_button_pressed():
 func animate_rubbing_hands():
 	update_instruction_animated("Rubbing hands...")
 	
+	game_timer.stop() # Stop for rubbing animation
 	# Crossfade to rubbing animation
 	rubbing_hands.position = Vector2(584, 496)
 	await crossfade_sprites(soap_hands, rubbing_hands, 0.5)
@@ -360,6 +427,7 @@ func animate_rubbing_hands():
 	
 	# Complete step 4
 	level_manager.complete_step(3)
+	game_timer.start() # Resume for rinsing
 	print("Hands rubbed thoroughly!")
 
 # ===== PHASE 5: RINSE HANDS =====
@@ -374,6 +442,7 @@ func _on_rinse_hands_button_pressed():
 func animate_rinsing_hands():
 	update_instruction_animated("Moving hands to faucet...")
 	
+	game_timer.stop() # Stop for rinsing/movement animation
 	# Move soap hands up to faucet
 	var tween1 = create_tween()
 	tween1.set_ease(Tween.EASE_IN_OUT)
@@ -404,6 +473,7 @@ func animate_rinsing_hands():
 	
 	# Complete step 5
 	level_manager.complete_step(4)
+	game_timer.start() # Resume for turn off faucet
 	print("Hands rinsed!")
 
 # ===== PHASE 6: COMPLETION =====
@@ -452,21 +522,22 @@ func _on_step_completed(step_index):
 			wet_hands_button.visible = true
 			wet_hands_button.modulate.a = 0
 			fade_in_control(wet_hands_button, 0.5)
-			update_instruction_animated("Click 'Wet Hands' button!")
+			update_instruction_animated("Great job! Running water helps wash away loose dirt. Let's get our hands wet! Click 'Wet Hands'.", "correct")
 		1: # Hands wet
 			soap_area.visible = true
-			update_instruction_animated("Drag the soap to your hands!")
+			update_instruction_animated("Nice! Wetting your hands first helps the soap create lots of bubbles to trap germs. Now, drag the soap to your hands!", "correct")
 		2: # Soap applied
 			rub_hands_button.visible = true
 			rub_hands_button.modulate.a = 0
 			fade_in_control(rub_hands_button, 0.5)
-			update_instruction_animated("Click 'Rub Hands' button!")
+			update_instruction_animated("Perfect! Soap breaks down the oils that germs hide in. Let's rub them all around! Click 'Rub Hands'.", "correct")
 		3: # Hands rubbed
 			rinse_hands_button.visible = true
 			rinse_hands_button.modulate.a = 0
 			fade_in_control(rinse_hands_button, 0.5)
-			update_instruction_animated("Click 'Rinse Hands' button!")
+			update_instruction_animated("Wow! Rubbing for 20 seconds makes sure we catch all the sneaky germs. Now, let's rinse them away! Click 'Rinse Hands'.", "correct")
 		4: # Hands rinsed
-			update_instruction_animated("Now turn off the faucet!")
+			update_instruction_animated("All clean! Rinsing washes the soap and trapped germs right down the drain. Let's save water and turn off the faucet!", "correct")
 		5: # Level complete
-			update_instruction_animated("Level Complete!")
+			game_timer.stop()
+			update_instruction_animated("Level Complete! You're a Germ Buster Master! Clean hands keep you healthy!", "correct")
