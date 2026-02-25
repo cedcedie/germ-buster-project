@@ -69,6 +69,11 @@ func _ready():
 	setup_button_animations(rub_hands_button)
 	setup_button_animations(rinse_hands_button)
 	
+	GameManager.style_button(wet_hands_button, "blue")
+	GameManager.style_button(rub_hands_button, "yellow")
+	GameManager.style_button(rinse_hands_button, "green")
+	GameManager.style_button(continue_button, "green")
+	
 	wet_hands_button.connect("pressed", _on_wet_hands_button_pressed)
 	rub_hands_button.connect("pressed", _on_rub_hands_button_pressed)
 	rinse_hands_button.connect("pressed", _on_rinse_hands_button_pressed)
@@ -99,13 +104,47 @@ func _ready():
 		rub_hands_button.add_theme_font_override("font", game_font)
 		rinse_hands_button.add_theme_font_override("font", game_font)
 	
-	game_timer.timeout.connect(_on_timer_timeout)
+	# Don't connect timeout for generic failure anymore per request
+	# game_timer.timeout.connect(_on_timer_timeout) 
 	
 	# Initial instruction
-	timer_label.visible = false # Hide timer initially, show only after intro
+	timer_label.visible = false 
 	update_instruction_animated("Hi there! Our hands are a bit dirty. Can you help me turn on the water? Just click the faucet!")
 	
+	_add_germ_details()
 	update_ui_text()
+	
+	# Start glowing the first target
+	add_glow_pulse(faucet_sprite)
+	# Transition Fade In (from black)
+	var fade_layer = CanvasLayer.new()
+	fade_layer.layer = 100 # Top
+	add_child(fade_layer)
+	
+	var fade_rect = ColorRect.new()
+	fade_rect.color = Color.BLACK
+	fade_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	fade_layer.add_child(fade_rect)
+	
+	var fade_tween = create_tween()
+	fade_tween.tween_property(fade_rect, "modulate:a", 0.0, 0.5)
+	fade_tween.finished.connect(fade_layer.queue_free)
+
+var germ_particles: Array[CPUParticles2D] = []
+
+func _add_germ_details():
+	var hands_to_infect = [two_hands, soap_hands, rubbing_hands]
+	for hand in hands_to_infect:
+		if not hand: continue
+		var germs = GameManager.spawn_germ_particles(hand, Vector2(320, 240), 30, Vector2(8, 15))
+		germ_particles.append(germs)
+
+func _clear_germs():
+	for germs in germ_particles:
+		var tween = create_tween()
+		tween.tween_property(germs, "modulate:a", 0.0, 1.0)
+		tween.finished.connect(germs.queue_free)
+	germ_particles.clear()
 
 # ===== ANIMATION HELPER FUNCTIONS =====
 
@@ -114,11 +153,11 @@ func setup_button_animations(button: Button):
 	button.mouse_exited.connect(func(): animate_button_hover(button, false))
 
 func animate_button_hover(button: Button, is_hovering: bool):
+	# User requested "simple button" - removing bouncy scaling
+	# Just slight modulate or nothing (Godot default hover is usually color tint if themed)
+	var target_modulate = Color(0.8, 0.8, 0.8) if is_hovering else Color(1, 1, 1)
 	var tween = create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_ELASTIC) # Bouncier effect
-	var target_scale = Vector2(1.2, 1.2) if is_hovering else Vector2(1.0, 1.0)
-	tween.tween_property(button, "scale", target_scale, 0.4)
+	tween.tween_property(button, "modulate", target_modulate, 0.1)
 
 func fade_out_button(button: Button):
 	play_sfx(button_click_sound)
@@ -168,28 +207,25 @@ func update_instruction_animated(text: String, type: String = "talking"):
 	# Hide timer during dialogue to avoid confusion
 	timer_label.visible = false
 	
-	# Reset timer internal state
-	timer_label.text = "Time: 10s"
-	game_timer.wait_time = 10.0
+	# Reset timer internal state - removing default 10s reset
+	# timer_label.text = "Time: 10s"
+	# game_timer.wait_time = 10.0
 	
 	# Show text and auto-hide after 3 seconds
 	dialogue_box.show_text(text, type, 3.0)
+	
 	
 	# Wait for the dialogue to completely disappear before starting the timer
 	if not dialogue_box.dialogue_hidden.is_connected(resume_timer_after_dialogue):
 		dialogue_box.dialogue_hidden.connect(resume_timer_after_dialogue, CONNECT_ONE_SHOT)
 
 func resume_timer_after_dialogue():
-	# Only start timer if the level isn't complete and we're not in an animation state
-	if level_manager.current_step < 5:
-		timer_label.visible = true # Show timer only when action is needed
-		game_timer.start()
-		print("Timer resumed after dialogue hidden.")
+	# Timer only starts specifically for certain tasks now
+	pass
 
 func _on_timer_timeout():
-	# Retry level logic
-	print("Time's up! Retrying level...")
-	get_tree().reload_current_scene()
+	# Timer only used for rubbing phase now, so this generic timeout isn't really used for failure anymore.
+	pass
 
 # ===== AUDIO HELPER FUNCTIONS =====
 
@@ -207,6 +243,31 @@ func stop_faucet_loop():
 	await tween.finished
 	faucet_loop.stop()
 	faucet_loop.volume_db = -5
+
+# ===== VISUAL HELPERS =====
+var active_glow_tween: Tween
+
+func add_glow_pulse(node: CanvasItem):
+	# Stop any existing glow first
+	remove_glow_pulse()
+	
+	if not node: return
+	
+	active_glow_tween = create_tween()
+	active_glow_tween.set_loops()
+	active_glow_tween.tween_property(node, "modulate", Color(1.3, 1.3, 1.3), 0.8).set_trans(Tween.TRANS_SINE)
+	active_glow_tween.tween_property(node, "modulate", Color(1.0, 1.0, 1.0), 0.8).set_trans(Tween.TRANS_SINE)
+
+func remove_glow_pulse():
+	if active_glow_tween:
+		active_glow_tween.kill()
+		active_glow_tween = null
+	# Reset modulations of potential targets just in case
+	faucet_sprite.modulate = Color(1,1,1)
+	wet_hands_button.modulate = Color(1,1,1)
+	soap_area.modulate = Color(1,1,1)
+	rub_hands_button.modulate = Color(1,1,1)
+	rinse_hands_button.modulate = Color(1,1,1)
 
 # ===== GAME LOGIC =====
 
@@ -251,7 +312,10 @@ func _on_faucet_clicked(_viewport, event, _shape_idx):
 			pop_tween.tween_property(faucet_sprite, "scale", Vector2(1.2, 1.2), 0.1)
 			pop_tween.tween_property(faucet_sprite, "scale", Vector2(1.0, 1.0), 0.1)
 			
+			remove_glow_pulse() # Stop glowing faucet
+			
 			level_manager.complete_step(0)
+			GameManager.shake_camera(2.0, 0.1)
 			print("Faucet turned on!")
 		# Step 6: Turn off faucet
 		elif level_manager.current_step == 5 and faucet_is_on:
@@ -276,6 +340,7 @@ func _on_faucet_clicked(_viewport, event, _shape_idx):
 
 func _on_wet_hands_button_pressed():
 	if level_manager.current_step == 1:
+		remove_glow_pulse() # Stop button glow
 		fade_out_button(wet_hands_button)
 		await get_tree().create_timer(0.3).timeout
 		wet_hands_button.visible = false
@@ -296,7 +361,7 @@ func animate_hands_up():
 	await tween.finished
 	
 	level_manager.complete_step(1)
-	game_timer.start() # Resume for next step (drag soap)
+	# game_timer.start() # Removed generic timer
 	print("Hands are wet!")
 
 # ===== PHASE 3: SOAP DRAG AND DROP =====
@@ -313,6 +378,7 @@ func _on_soap_input_event(_viewport, event, _shape_idx):
 				# Scale up when dragging
 				var tween = create_tween()
 				tween.tween_property(soap_area, "scale", Vector2(1.9, 1.9), 0.2)
+				remove_glow_pulse() # Stop glowing once they grab it
 				print("Started dragging soap")
 			else:
 				is_dragging_soap = false
@@ -347,10 +413,10 @@ func _process(delta):
 	if is_dragging_toothbrush:
 		toothbrush_area.global_position = get_global_mouse_position() + toothbrush_offset
 		
-	# Update timer display
-	if game_timer.time_left > 0:
+	# Update timer display only if active
+	if timer_label.visible and game_timer.time_left > 0:
 		timer_label.text = "Time: %ds" % int(ceil(game_timer.time_left))
-	else:
+	elif timer_label.visible:
 		timer_label.text = "Time's Up!"
 
 func _on_item_dropped_on_hands(area: Area2D):
@@ -398,42 +464,55 @@ func _on_item_dropped_on_hands(area: Area2D):
 		
 		# Complete step 3
 		level_manager.complete_step(2)
-		game_timer.start() # Resume for rubbing
+		GameManager.shake_camera(5.0, 0.2) # Added juice
+		# game_timer.start() # Removed generic timer
 		print("Soap application complete!")
 
 # ===== PHASE 4: RUB HANDS =====
 
 func _on_rub_hands_button_pressed():
 	if level_manager.current_step == 3:
+		remove_glow_pulse()
 		fade_out_button(rub_hands_button)
 		await get_tree().create_timer(0.3).timeout
 		rub_hands_button.visible = false
 		animate_rubbing_hands()
 
 func animate_rubbing_hands():
-	update_instruction_animated("Rubbing hands...")
+	update_instruction_animated("Keep rubbing for 30 seconds! Every bubble counts.")
 	
-	game_timer.stop() # Stop for rubbing animation
+	# Start 30s timer
+	game_timer.wait_time = 30.0
+	game_timer.start()
+	timer_label.visible = true
+	
 	# Crossfade to rubbing animation
 	rubbing_hands.position = Vector2(584, 496)
 	await crossfade_sprites(soap_hands, rubbing_hands, 0.5)
 	rubbing_hands.play("rub_hands")
 	
-	# Wait 5 seconds for rubbing animation
-	await get_tree().create_timer(5.0).timeout
+	# Loop until timer finishes
+	while game_timer.time_left > 0:
+		timer_label.text = "Time: %ds" % int(ceil(game_timer.time_left))
+		await get_tree().process_frame
+	
+	timer_label.visible = false
 	
 	# Crossfade back to soap hands
 	await crossfade_sprites(rubbing_hands, soap_hands, 0.5)
 	
+	_clear_germs()
+	
 	# Complete step 4
 	level_manager.complete_step(3)
-	game_timer.start() # Resume for rinsing
-	print("Hands rubbed thoroughly!")
+	GameManager.shake_camera(5.0, 0.2) # Added juice
+	print("Hands rubbed thoroughly for 30 seconds!")
 
 # ===== PHASE 5: RINSE HANDS =====
 
 func _on_rinse_hands_button_pressed():
 	if level_manager.current_step == 4:
+		remove_glow_pulse()
 		fade_out_button(rinse_hands_button)
 		await get_tree().create_timer(0.3).timeout
 		rinse_hands_button.visible = false
@@ -473,7 +552,7 @@ func animate_rinsing_hands():
 	
 	# Complete step 5
 	level_manager.complete_step(4)
-	game_timer.start() # Resume for turn off faucet
+	# game_timer.start() # Removed generic timer
 	print("Hands rinsed!")
 
 # ===== PHASE 6: COMPLETION =====
@@ -487,11 +566,47 @@ func show_completion_modal():
 	sfx_player.volume_db = -10
 	sfx_player.play()
 	
+	# Spawn fancy sparkles
+	for i in range(10):
+		GameManager.spawn_sparkle(Vector2(randf_range(200, 1000), randf_range(100, 500)))
+		await get_tree().create_timer(0.05).timeout
+	
 	completion_modal.modulate.a = 0
 	completion_modal.visible = true
 	
 	var panel = completion_modal.get_node("Panel")
+	# Stylize Panel
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.1, 0.3, 0.4, 0.95)
+	style.set_corner_radius_all(20)
+	style.shadow_size = 10
+	style.shadow_color = Color(0, 0, 0, 0.5)
+	panel.add_theme_stylebox_override("panel", style)
+	
 	panel.position.y = -300
+	
+	# Setup Buttons
+	var vbox = panel.get_node("VBoxContainer")
+	var continue_btn = vbox.get_node("ContinueButton")
+	
+	# Update Continue Button
+	continue_btn.text = "Continue to Level 2"
+	if continue_btn.is_connected("pressed", _on_continue_button_pressed):
+		continue_btn.disconnect("pressed", _on_continue_button_pressed)
+	continue_btn.pressed.connect(_on_continue_to_level_2)
+	setup_button_animations(continue_btn)
+	
+	# Add Menu Button if not exists
+	var menu_btn = vbox.get_node_or_null("MenuButton")
+	if not menu_btn:
+		menu_btn = Button.new()
+		menu_btn.name = "MenuButton"
+		menu_btn.text = "Main Menu"
+		menu_btn.add_theme_font_size_override("font_size", 20)
+		vbox.add_child(menu_btn)
+		vbox.move_child(menu_btn, vbox.get_child_count() - 2)
+		menu_btn.pressed.connect(_on_menu_button_pressed)
+		GameManager.style_button(menu_btn, "blue")
 	
 	var tween = create_tween()
 	tween.set_parallel(true)
@@ -502,10 +617,25 @@ func show_completion_modal():
 	await sfx_player.finished
 	sfx_player.volume_db = 0
 
-func _on_continue_button_pressed():
+func _on_continue_to_level_2():
 	play_sfx(button_click_sound)
+	# Save progress before moving
+	GameManager.complete_level(0) 
+	
+	await get_tree().create_timer(0.2).timeout
+	get_tree().change_scene_to_file("res://Scenes/Level2.tscn")
+
+func _on_menu_button_pressed():
+	play_sfx(button_click_sound)
+	# Also save progress if they choose to go to menu
+	GameManager.complete_level(0)
+	
 	await get_tree().create_timer(0.2).timeout
 	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
+
+func _on_continue_button_pressed():
+	# Deprecated, redirected to _on_continue_to_level_2
+	_on_continue_to_level_2()
 
 func _on_step_completed(step_index):
 	print("Completed step: ", step_index)
@@ -522,21 +652,26 @@ func _on_step_completed(step_index):
 			wet_hands_button.visible = true
 			wet_hands_button.modulate.a = 0
 			fade_in_control(wet_hands_button, 0.5)
+			add_glow_pulse(wet_hands_button)
 			update_instruction_animated("Great job! Running water helps wash away loose dirt. Let's get our hands wet! Click 'Wet Hands'.", "correct")
 		1: # Hands wet
 			soap_area.visible = true
+			add_glow_pulse(soap_area)
 			update_instruction_animated("Nice! Wetting your hands first helps the soap create lots of bubbles to trap germs. Now, drag the soap to your hands!", "correct")
 		2: # Soap applied
 			rub_hands_button.visible = true
 			rub_hands_button.modulate.a = 0
 			fade_in_control(rub_hands_button, 0.5)
+			add_glow_pulse(rub_hands_button)
 			update_instruction_animated("Perfect! Soap breaks down the oils that germs hide in. Let's rub them all around! Click 'Rub Hands'.", "correct")
 		3: # Hands rubbed
 			rinse_hands_button.visible = true
 			rinse_hands_button.modulate.a = 0
 			fade_in_control(rinse_hands_button, 0.5)
+			add_glow_pulse(rinse_hands_button)
 			update_instruction_animated("Wow! Rubbing for 20 seconds makes sure we catch all the sneaky germs. Now, let's rinse them away! Click 'Rinse Hands'.", "correct")
 		4: # Hands rinsed
+			add_glow_pulse(faucet_sprite)
 			update_instruction_animated("All clean! Rinsing washes the soap and trapped germs right down the drain. Let's save water and turn off the faucet!", "correct")
 		5: # Level complete
 			game_timer.stop()

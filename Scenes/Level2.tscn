@@ -1,96 +1,338 @@
-[gd_scene load_steps=7 format=3 uid="uid://e2f3a4b5c6d7"]
+[gd_scene load_steps=35 format=3 uid="uid://e2f3a4b5c6d7"]
 
-[ext_resource type="Script" path="res://Scripts/Level2.gd" id="1_level2_script"]
-[ext_resource type="Script" path="res://Scripts/LevelManager.gd" id="2_levelmanager"]
-[ext_resource type="Script" path="res://Scripts/InteractableTool.gd" id="3_interactabletool"]
-[ext_resource type="Texture2D" path="res://icon.svg" id="4_texture"]
-[ext_resource type="Script" path="res://Scripts/DropZone.gd" id="5_dropzone"]
+[ext_resource type="Script" uid="uid://cpbq7bfkw45si" path="res://Scripts/Level2.gd" id="1_level2_script"]
+[ext_resource type="Texture2D" uid="uid://7ur8rgvcm3lc" path="res://Assets/level 2/hand nail cutting animation.png" id="3_5awjf"]
+[ext_resource type="Texture2D" uid="uid://doq1s2k3mtv2d" path="res://Assets/level 2/level2bg.png" id="3_ejprb"]
+[ext_resource type="Texture2D" uid="uid://bke7c8v4xc8vd" path="res://Assets/level 2/hand nail file animation.png" id="4_jriq2"]
+[ext_resource type="Texture2D" uid="uid://cx346l84mtj1c" path="res://Assets/level 2/nail file.png" id="5_ehjmi"]
+[ext_resource type="Texture2D" uid="uid://8b0w6py33biy" path="res://Assets/level 2/nail cutter 2 frame.png" id="6_p4u3k"]
+[ext_resource type="PackedScene" uid="uid://bjq563tf0bk7j" path="res://Scenes/DialogueBox.tscn" id="10_ejprb"]
+[ext_resource type="Script" uid="uid://sarsnxppbhmb" path="res://Scripts/DropZone.gd" id="DropZone"]
+[ext_resource type="Script" uid="uid://l78sgay1b4kl" path="res://Scripts/InteractableTool.gd" id="InteractableTool"]
+[ext_resource type="Script" uid="uid://da1ospgp1fvr7" path="res://Scripts/LevelManager.gd" id="LevelManager"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3cqh"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(0, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jriq2"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(842, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehjmi"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(1684, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4u3k"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(2526, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70df5"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(3368, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejprb"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(4210, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_au75x"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(5052, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62f1r"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(5894, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1je60"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(6736, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycmr1"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(7578, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jwna"]
+atlas = ExtResource("3_5awjf")
+region = Rect2(8420, 0, 842, 496)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cutting"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3cqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jriq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehjmi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4u3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70df5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejprb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_au75x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62f1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1je60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycmr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jwna")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgc6j"]
+atlas = ExtResource("4_jriq2")
+region = Rect2(0, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xx40l"]
+atlas = ExtResource("4_jriq2")
+region = Rect2(842, 0, 842, 496)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utdxf"]
+atlas = ExtResource("4_jriq2")
+region = Rect2(1684, 0, 842, 496)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_filing"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgc6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xx40l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utdxf")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_70df5"]
+size = Vector2(370.00024, 210.00008)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_finger"]
+radius = 44.102154
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgqvi"]
+atlas = ExtResource("6_p4u3k")
+region = Rect2(191, 0, 191, 193)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cjmx"]
+atlas = ExtResource("6_p4u3k")
+region = Rect2(0, 0, 191, 193)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wk15"]
+atlas = ExtResource("6_p4u3k")
+region = Rect2(0, 0, 191, 193)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_clipper"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgqvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cjmx")
+}],
+"loop": false,
+"name": &"clip",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wk15")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tool"]
-size = Vector2(64, 64)
+size = Vector2(120, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ejprb"]
+size = Vector2(39, 40)
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_level2_script")
 
 [node name="LevelManager" type="Node" parent="."]
-script = ExtResource("2_levelmanager")
+script = ExtResource("LevelManager")
 total_steps = 2
 level_name = "Nail Cutting"
 
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(640, 360)
-scale = Vector2(10, 6)
-texture = ExtResource("4_texture")
-modulate = Color(0.9, 0.9, 0.9, 1)
+[node name="Level2Bg" type="Sprite2D" parent="."]
+position = Vector2(576, 320)
+scale = Vector2(0.969697, 0.89118457)
+texture = ExtResource("3_ejprb")
+region_enabled = true
+region_rect = Rect2(75, 20, 1188, 726)
 
-[node name="Hand" type="Sprite2D" parent="."]
-position = Vector2(640, 500)
-texture = ExtResource("4_texture")
-modulate = Color(0.8, 0.6, 0.4, 1)
-scale = Vector2(3, 3)
+[node name="HandCutting" type="AnimatedSprite2D" parent="."]
+position = Vector2(640, 480)
+scale = Vector2(0.8, 0.9)
+sprite_frames = SubResource("SpriteFrames_cutting")
 
-[node name="Nail1" type="Area2D" parent="Hand"]
-position = Vector2(-40, -40)
-script = ExtResource("5_dropzone")
-valid_tools = Array[String](["NailCutter", "NailFile"])
+[node name="HandFiling" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(640, 480)
+scale = Vector2(0.8, 0.9)
+sprite_frames = SubResource("SpriteFrames_filing")
 
-[node name="Sprite2D" type="Sprite2D" parent="Hand/Nail1"]
-scale = Vector2(0.2, 0.3)
-texture = ExtResource("4_texture")
-modulate = Color(1, 0.9, 0.8, 1) # Nail color
+[node name="right" type="Area2D" parent="HandFiling"]
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailFile"])
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Nail1"]
-shape = SubResource("RectangleShape2D_tool")
-scale = Vector2(0.3, 0.3)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HandFiling/right"]
+position = Vector2(184.99982, -110)
+scale = Vector2(0.9999995, 0.9999995)
+shape = SubResource("RectangleShape2D_70df5")
 
-[node name="Nail2" type="Area2D" parent="Hand"]
-position = Vector2(0, -50)
-script = ExtResource("5_dropzone")
-valid_tools = Array[String](["NailCutter", "NailFile"])
+[node name="left" type="Area2D" parent="HandFiling"]
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailFile"])
 
-[node name="Sprite2D" type="Sprite2D" parent="Hand/Nail2"]
-scale = Vector2(0.2, 0.3)
-texture = ExtResource("4_texture")
-modulate = Color(1, 0.9, 0.8, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HandFiling/left"]
+position = Vector2(-220, -110)
+scale = Vector2(0.9999995, 0.9999995)
+shape = SubResource("RectangleShape2D_70df5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Nail2"]
-shape = SubResource("RectangleShape2D_tool")
-scale = Vector2(0.3, 0.3)
+[node name="FingerAreas" type="Node2D" parent="."]
 
-[node name="Nail3" type="Area2D" parent="Hand"]
-position = Vector2(40, -40)
-script = ExtResource("5_dropzone")
-valid_tools = Array[String](["NailCutter", "NailFile"])
+[node name="Finger1" type="Area2D" parent="FingerAreas"]
+position = Vector2(200, 450)
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailCutter"])
 
-[node name="Sprite2D" type="Sprite2D" parent="Hand/Nail3"]
-scale = Vector2(0.2, 0.3)
-texture = ExtResource("4_texture")
-modulate = Color(1, 0.9, 0.8, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FingerAreas/Finger1"]
+position = Vector2(392, -21)
+shape = SubResource("CircleShape2D_finger")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Nail3"]
-shape = SubResource("RectangleShape2D_tool")
-scale = Vector2(0.3, 0.3)
+[node name="Finger2" type="Area2D" parent="FingerAreas"]
+position = Vector2(280, 380)
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailCutter"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FingerAreas/Finger2"]
+position = Vector2(233, -45)
+shape = SubResource("CircleShape2D_finger")
+
+[node name="Finger3" type="Area2D" parent="FingerAreas"]
+position = Vector2(380, 350)
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailCutter"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FingerAreas/Finger3"]
+position = Vector2(74, -32)
+shape = SubResource("CircleShape2D_finger")
+
+[node name="Finger4" type="Area2D" parent="FingerAreas"]
+position = Vector2(500, 380)
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailCutter"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FingerAreas/Finger4"]
+position = Vector2(-102, -36)
+shape = SubResource("CircleShape2D_finger")
+
+[node name="Finger5" type="Area2D" parent="FingerAreas"]
+position = Vector2(600, 450)
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailCutter"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FingerAreas/Finger5"]
+position = Vector2(-248, -49)
+shape = SubResource("CircleShape2D_finger")
+
+[node name="Finger6" type="Area2D" parent="FingerAreas"]
+position = Vector2(700, 450)
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailCutter"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FingerAreas/Finger6"]
+position = Vector2(-31, -23)
+shape = SubResource("CircleShape2D_finger")
+
+[node name="Finger7" type="Area2D" parent="FingerAreas"]
+position = Vector2(800, 380)
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailCutter"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FingerAreas/Finger7"]
+position = Vector2(-51, -46)
+shape = SubResource("CircleShape2D_finger")
+
+[node name="Finger8" type="Area2D" parent="FingerAreas"]
+position = Vector2(920, 350)
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailCutter"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FingerAreas/Finger8"]
+position = Vector2(-107, -38)
+shape = SubResource("CircleShape2D_finger")
+
+[node name="Finger9" type="Area2D" parent="FingerAreas"]
+position = Vector2(1040, 380)
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailCutter"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FingerAreas/Finger9"]
+position = Vector2(-175, -45)
+shape = SubResource("CircleShape2D_finger")
+
+[node name="Finger10" type="Area2D" parent="FingerAreas"]
+position = Vector2(1140, 450)
+script = ExtResource("DropZone")
+valid_tools = Array[String](["NailCutter"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FingerAreas/Finger10"]
+position = Vector2(-227, -63)
+shape = SubResource("CircleShape2D_finger")
 
 [node name="NailCutter" type="Area2D" parent="."]
-position = Vector2(200, 200)
-script = ExtResource("3_interactabletool")
+position = Vector2(200, 550)
+script = ExtResource("InteractableTool")
 tool_name = "NailCutter"
 
-[node name="Sprite2D" type="Sprite2D" parent="NailCutter"]
-texture = ExtResource("4_texture")
-modulate = Color(0.3, 0.3, 0.3, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NailCutter"]
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_clipper")
+animation = &"clip"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NailCutter"]
+position = Vector2(4, 10)
 shape = SubResource("RectangleShape2D_tool")
 
+[node name="nail_tip" type="CollisionShape2D" parent="NailCutter"]
+position = Vector2(-31.5, 22)
+shape = SubResource("RectangleShape2D_ejprb")
+
 [node name="NailFile" type="Area2D" parent="."]
-position = Vector2(1000, 200)
-script = ExtResource("3_interactabletool")
+position = Vector2(1000, 550)
+script = ExtResource("InteractableTool")
 tool_name = "NailFile"
 
 [node name="Sprite2D" type="Sprite2D" parent="NailFile"]
-texture = ExtResource("4_texture")
-modulate = Color(0.7, 0.7, 0.7, 1)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("5_ehjmi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NailFile"]
 shape = SubResource("RectangleShape2D_tool")
@@ -103,3 +345,95 @@ offset_top = 20.0
 offset_right = 200.0
 offset_bottom = 60.0
 text = "Level 2: Nail Care"
+
+[node name="CompletionModal" type="ColorRect" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Panel" type="Panel" parent="UI/CompletionModal"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -200.0
+offset_right = 350.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CompletionModal/Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="UI/CompletionModal/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.2, 1)
+theme_override_font_sizes/font_size = 40
+text = "🎉 Level 2 Complete! 🎉"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MessageLabel" type="Label" parent="UI/CompletionModal/Panel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
+text = "💅 Nail Care Mastered! 💅
+
+✅ Short nails prevent germ buildup
+✅ Smooth edges stop snagging and breaking
+✅ Washing hands is easier with short nails
+✅ Keeps you looking neat and tidy!
+
+🌟 You're officially a Germ Buster Pro! 🌟"
+autowrap_mode = 3
+
+[node name="HSeparator2" type="HSeparator" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Continue to Level 3"
+
+[node name="MainMenuButton" type="Button" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Main Menu"
+
+[node name="DialogueBox" parent="." instance=ExtResource("10_ejprb")]
+
+[node name="DialoguePanel" parent="DialogueBox" index="0"]
+offset_top = -696.0
+offset_bottom = -516.0
+
+[node name="background_face" parent="DialogueBox" index="1"]
+offset_top = 32.0
+offset_bottom = 115.0
+
+[node name="AnimatedSprite2D" parent="DialogueBox/background_face" index="0"]
+position = Vector2(41.499996, 42.5)
+scale = Vector2(1.2343751, 1.2656251)
+
+[editable path="DialogueBox"]

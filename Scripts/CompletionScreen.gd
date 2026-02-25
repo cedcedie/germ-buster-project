@@ -1,6 +1,6 @@
 extends Control
 
-@onready var stars_label = $StarsLabel
+@onready var stars_label = $Panel/StarsLabel
 
 func _ready():
 	stars_label.text = "Stars Earned: " + str(GameManager.total_stars)

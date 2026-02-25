@@ -1,100 +1,289 @@
-[gd_scene load_steps=7 format=3 uid="uid://1b2c3d4e5f6"]
+[gd_scene load_steps=30 format=3 uid="uid://1b2c3d4e5f6"]
 
-[ext_resource type="Script" path="res://Scripts/Level4.gd" id="1_level4_script"]
-[ext_resource type="Script" path="res://Scripts/LevelManager.gd" id="2_levelmanager"]
-[ext_resource type="Script" path="res://Scripts/InteractableTool.gd" id="3_interactabletool"]
-[ext_resource type="Texture2D" path="res://icon.svg" id="4_texture"]
-[ext_resource type="Script" path="res://Scripts/DropZone.gd" id="5_dropzone"]
+[ext_resource type="Script" uid="uid://do18hnadm7xlc" path="res://Scripts/Level4.gd" id="1_level4_script"]
+[ext_resource type="Texture2D" uid="uid://dimayvx2gaa5p" path="res://Assets/Level 4/floss germs animation.png" id="2_331a3"]
+[ext_resource type="Texture2D" uid="uid://dhykm5y1b6lgs" path="res://Assets/level 3/Gemini_Generated_Image_blhdphblhdphblhd(2).png" id="2_glqn7"]
+[ext_resource type="Texture2D" uid="uid://dod1eod0pmkrm" path="res://Assets/Level 4/dental floss.png" id="3_fv7k0"]
+[ext_resource type="PackedScene" uid="uid://bjq563tf0bk7j" path="res://Scenes/DialogueBox.tscn" id="4_4w2qb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tool"]
-size = Vector2(64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv7k0"]
+atlas = ExtResource("2_331a3")
+region = Rect2(0, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4w2qb"]
+atlas = ExtResource("2_331a3")
+region = Rect2(491, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glqn7"]
+atlas = ExtResource("2_331a3")
+region = Rect2(982, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ktle"]
+atlas = ExtResource("2_331a3")
+region = Rect2(1473, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgu2x"]
+atlas = ExtResource("2_331a3")
+region = Rect2(1964, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lrky"]
+atlas = ExtResource("2_331a3")
+region = Rect2(2455, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgp81"]
+atlas = ExtResource("2_331a3")
+region = Rect2(2946, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv5kp"]
+atlas = ExtResource("2_331a3")
+region = Rect2(3437, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxjbv"]
+atlas = ExtResource("2_331a3")
+region = Rect2(3928, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iv3jq"]
+atlas = ExtResource("2_331a3")
+region = Rect2(4419, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edi5u"]
+atlas = ExtResource("2_331a3")
+region = Rect2(4910, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ra572"]
+atlas = ExtResource("2_331a3")
+region = Rect2(5401, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2brj3"]
+atlas = ExtResource("2_331a3")
+region = Rect2(6383, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uw8xp"]
+atlas = ExtResource("2_331a3")
+region = Rect2(6874, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4upjg"]
+atlas = ExtResource("2_331a3")
+region = Rect2(7365, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqeob"]
+atlas = ExtResource("2_331a3")
+region = Rect2(7856, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jorw0"]
+atlas = ExtResource("2_331a3")
+region = Rect2(8347, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4uhwj"]
+atlas = ExtResource("2_331a3")
+region = Rect2(8838, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7k2o"]
+atlas = ExtResource("2_331a3")
+region = Rect2(9329, 0, 491, 395)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i2yhf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv7k0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4w2qb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glqn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ktle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgu2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lrky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgp81")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv5kp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxjbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iv3jq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edi5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ra572")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2brj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uw8xp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4upjg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqeob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jorw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4uhwj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7k2o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fv7k0"]
+size = Vector2(28, 69)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4w2qb"]
+size = Vector2(35, 58)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glqn7"]
+bg_color = Color(0.2, 0.2, 0.2, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ktle"]
+bg_color = Color(0.2, 0.8, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Level4" type="Node2D"]
 script = ExtResource("1_level4_script")
 
-[node name="LevelManager" type="Node" parent="."]
-script = ExtResource("2_levelmanager")
-total_steps = 2
-level_name = "Flossing"
+[node name="GeminiGeneratedImageBlhdphblhdphblhd(2)" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(0.92903227, 0.874494)
+texture = ExtResource("2_glqn7")
+region_enabled = true
+region_rect = Rect2(34, 0, 1240, 741)
 
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(640, 360)
-scale = Vector2(10, 6)
-texture = ExtResource("4_texture")
-modulate = Color(0.9, 0.9, 0.9, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(579, 329)
+sprite_frames = SubResource("SpriteFrames_i2yhf")
 
-[node name="MouthOpen" type="Sprite2D" parent="."]
-position = Vector2(640, 360)
-scale = Vector2(6, 4)
-texture = ExtResource("4_texture")
-modulate = Color(0.9, 0.5, 0.5, 1) # Pink mouth
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
 
-[node name="Teeth" type="Node2D" parent="MouthOpen"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D"]
+position = Vector2(-160, -97)
+shape = SubResource("RectangleShape2D_fv7k0")
+disabled = true
 
-# Gaps between teeth
-[node name="Gap1" type="Area2D" parent="MouthOpen/Teeth"]
-position = Vector2(-20, 0)
-script = ExtResource("5_dropzone")
-valid_tools = Array[String](["FlossPiece"])
+[node name="Area2D2" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(51, -15)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MouthOpen/Teeth/Gap1"]
-shape = SubResource("RectangleShape2D_tool")
-scale = Vector2(0.2, 0.8)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D2"]
+position = Vector2(-160, -97)
+shape = SubResource("RectangleShape2D_fv7k0")
+disabled = true
 
-[node name="Dirt" type="ColorRect" parent="MouthOpen/Teeth/Gap1"]
-offset_left = -5.0
-offset_top = -25.0
-offset_right = 5.0
-offset_bottom = 25.0
-color = Color(0.3, 0.5, 0.2, 0.8) # Greenish 'stuck food'
+[node name="Area2D3" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(101, -21)
 
-[node name="Gap2" type="Area2D" parent="MouthOpen/Teeth"]
-position = Vector2(20, 0)
-script = ExtResource("5_dropzone")
-valid_tools = Array[String](["FlossPiece"])
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D3"]
+position = Vector2(-160, -97)
+shape = SubResource("RectangleShape2D_fv7k0")
+disabled = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MouthOpen/Teeth/Gap2"]
-shape = SubResource("RectangleShape2D_tool")
-scale = Vector2(0.2, 0.8)
+[node name="Area2D4" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(164, -25)
 
-[node name="Dirt" type="ColorRect" parent="MouthOpen/Teeth/Gap2"]
-offset_left = -5.0
-offset_top = -25.0
-offset_right = 5.0
-offset_bottom = 25.0
-color = Color(0.3, 0.5, 0.2, 0.8)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D4"]
+position = Vector2(-160, -97)
+shape = SubResource("RectangleShape2D_fv7k0")
+disabled = true
 
-# Floss Dispenser
-[node name="FlossDispenser" type="Area2D" parent="."]
-position = Vector2(200, 300)
-script = ExtResource("3_interactabletool")
-tool_name = "FlossDispenser"
-is_draggable = false
+[node name="Area2D5" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(227, -24)
 
-[node name="Sprite2D" type="Sprite2D" parent="FlossDispenser"]
-texture = ExtResource("4_texture")
-modulate = Color(0.9, 0.9, 1, 1) # White box
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D5"]
+position = Vector2(-160, -97)
+shape = SubResource("RectangleShape2D_fv7k0")
+disabled = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FlossDispenser"]
-shape = SubResource("RectangleShape2D_tool")
+[node name="Area2D6" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(328, -7)
 
-# The actual piece of floss we will drag
-[node name="FlossPiece" type="Area2D" parent="."]
-position = Vector2(200, 300)
-visible = false
-script = ExtResource("3_interactabletool")
-tool_name = "FlossPiece"
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D6"]
+position = Vector2(-160, -97)
+shape = SubResource("RectangleShape2D_fv7k0")
+disabled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="FlossPiece"]
-scale = Vector2(0.1, 1.0)
-texture = ExtResource("4_texture")
-modulate = Color(1, 1, 1, 1) # White string
+[node name="Area2D7" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(1, 164)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FlossPiece"]
-shape = SubResource("RectangleShape2D_tool")
-scale = Vector2(0.2, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D7"]
+position = Vector2(-160, -97)
+shape = SubResource("RectangleShape2D_fv7k0")
+disabled = true
+
+[node name="Area2D8" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(100, 203)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D8"]
+position = Vector2(-160, -97)
+shape = SubResource("RectangleShape2D_fv7k0")
+disabled = true
+
+[node name="Area2D9" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(164, 207)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D9"]
+position = Vector2(-160, -97)
+shape = SubResource("RectangleShape2D_fv7k0")
+disabled = true
+
+[node name="Area2D10" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(227, 203)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D10"]
+position = Vector2(-160, -97)
+shape = SubResource("RectangleShape2D_fv7k0")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1010, 380)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+position = Vector2(30.5, -63)
+shape = SubResource("RectangleShape2D_4w2qb")
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DialogueBox" parent="UI" instance=ExtResource("4_4w2qb")]
 
 [node name="ChecklistLabel" type="Label" parent="UI"]
 offset_left = 20.0
@@ -102,3 +291,100 @@ offset_top = 20.0
 offset_right = 200.0
 offset_bottom = 60.0
 text = "Level 4: Flossing"
+
+[node name="FlossingProgressBar" type="ProgressBar" parent="UI"]
+visible = false
+offset_left = 340.0
+offset_top = 40.0
+offset_right = 840.0
+offset_bottom = 80.0
+theme_override_styles/background = SubResource("StyleBoxFlat_glqn7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1ktle")
+value = 50.0
+show_percentage = false
+
+[node name="CompletionModal" type="ColorRect" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Panel" type="Panel" parent="UI/CompletionModal"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -280.0
+offset_right = 350.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CompletionModal/Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="UI/CompletionModal/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.2, 1)
+theme_override_font_sizes/font_size = 40
+text = "🎉 Level Complete! 🎉"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MessageLabel" type="Label" parent="UI/CompletionModal/Panel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "🦷 Why Flossing Matters 🦷
+
+✅ Cleans where your toothbrush can't reach
+✅ Removes food from between teeth
+✅ Prevents gum disease and buildup
+✅ Keeps your gums healthy and strong
+✅ Prevents cavities between teeth
+✅ Should be done at least once a day!
+
+📚 You've Mastered Flossing:
+1. Hold floss firmly
+2. Slide gently between teeth
+3. Use a back-and-forth motion
+4. Clean both sides of each gap
+5. Smile with those clean gaps!
+
+🌟 Keep your smile healthy and flosso-fresh! 🌟"
+autowrap_mode = 3
+
+[node name="HSeparator2" type="HSeparator" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="MenuButton" type="Button" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Exit to Main Menu"
+
+[node name="AudioPlayers" type="Node" parent="."]
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+
+[editable path="UI/DialogueBox"]

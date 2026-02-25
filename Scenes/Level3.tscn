@@ -1,103 +1,278 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfcobodslvb7t"]
+[gd_scene load_steps=38 format=3 uid="uid://bfcobodslvb7t"]
 
 [ext_resource type="Script" uid="uid://cm0v8vgxwtvxr" path="res://Scripts/Level3.gd" id="1_level3_script"]
 [ext_resource type="Script" uid="uid://da1ospgp1fvr7" path="res://Scripts/LevelManager.gd" id="2_levelmanager"]
-[ext_resource type="Script" uid="uid://l78sgay1b4kl" path="res://Scripts/InteractableTool.gd" id="3_interactabletool"]
-[ext_resource type="Texture2D" uid="uid://cfh0hpxmvq5c6" path="res://icon.svg" id="4_texture"]
-[ext_resource type="Script" uid="uid://sarsnxppbhmb" path="res://Scripts/DropZone.gd" id="5_dropzone"]
+[ext_resource type="Texture2D" uid="uid://bjt4866fquxr8" path="res://Assets/level 3/mouth.png" id="3_43mlh"]
+[ext_resource type="Texture2D" uid="uid://dhykm5y1b6lgs" path="res://Assets/level 3/Gemini_Generated_Image_blhdphblhdphblhd(2).png" id="3_m7vvj"]
+[ext_resource type="Texture2D" uid="uid://c07bft5t5yntn" path="res://Assets/level 3/toothbrush.png" id="4_cp0jt"]
+[ext_resource type="Texture2D" uid="uid://ck474g4drkwmj" path="res://Assets/level 3/mouth-animation.png" id="5_p6pjf"]
+[ext_resource type="Texture2D" uid="uid://tt0l6uylgs5a" path="res://Assets/level 3/toothpaste.png" id="6_m7vvj"]
+[ext_resource type="Texture2D" uid="uid://diu0qml5hu2oi" path="res://Assets/Level 1/faucet.png" id="7_cp0jt"]
+[ext_resource type="Texture2D" uid="uid://biu1q07m5yxef" path="res://Assets/Level 1/Running water revise.png" id="8_p6pjf"]
+[ext_resource type="PackedScene" uid="uid://bjq563tf0bk7j" path="res://Scenes/DialogueBox.tscn" id="9_p6pjf"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tool"]
-size = Vector2(64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg31f"]
+atlas = ExtResource("5_p6pjf")
+region = Rect2(0, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncjpd"]
+atlas = ExtResource("5_p6pjf")
+region = Rect2(491, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffsx8"]
+atlas = ExtResource("5_p6pjf")
+region = Rect2(982, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl4b5"]
+atlas = ExtResource("5_p6pjf")
+region = Rect2(1473, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5kwq"]
+atlas = ExtResource("5_p6pjf")
+region = Rect2(1964, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms3ee"]
+atlas = ExtResource("5_p6pjf")
+region = Rect2(2455, 0, 491, 395)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktnig"]
+atlas = ExtResource("5_p6pjf")
+region = Rect2(2946, 0, 491, 395)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nfsas"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg31f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncjpd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffsx8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dl4b5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5kwq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ms3ee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktnig")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mouth"]
+size = Vector2(480, 319.4445)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxw0v"]
+atlas = ExtResource("6_m7vvj")
+region = Rect2(0, 0, 241, 404)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pcch"]
+atlas = ExtResource("6_m7vvj")
+region = Rect2(241, 0, 241, 404)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_85b6l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxw0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pcch")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_toothpaste"]
+size = Vector2(114, 310)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq3uj"]
+atlas = ExtResource("4_cp0jt")
+region = Rect2(0, 0, 470, 254)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e63ni"]
+atlas = ExtResource("4_cp0jt")
+region = Rect2(470, 0, 470, 254)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bnsu8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq3uj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e63ni")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_toothbrush"]
+size = Vector2(400, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_joc8x"]
+atlas = ExtResource("7_cp0jt")
+region = Rect2(0, 0, 200, 180)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m7vvj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_joc8x")
+}],
+"loop": true,
+"name": &"faucet_off",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kg31f"]
+size = Vector2(250, 280.00003)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubfni"]
+atlas = ExtResource("8_p6pjf")
+region = Rect2(0, 0, 503, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ug0sv"]
+atlas = ExtResource("8_p6pjf")
+region = Rect2(503, 0, 503, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wsr5"]
+atlas = ExtResource("8_p6pjf")
+region = Rect2(1006, 0, 503, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgorv"]
+atlas = ExtResource("8_p6pjf")
+region = Rect2(1509, 0, 503, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ncjpd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubfni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ug0sv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wsr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgorv")
+}],
+"loop": true,
+"name": &"faucet_impact",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.2, 0.2, 0.2, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
+bg_color = Color(0.2, 0.8, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Level3" type="Node2D"]
 script = ExtResource("1_level3_script")
 
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("2_levelmanager")
-total_steps = 3
+total_steps = 4
 level_name = "Tooth Brushing"
 
-[node name="Background" type="Sprite2D" parent="."]
-modulate = Color(0.9, 0.9, 0.9, 1)
-position = Vector2(640, 360)
-scale = Vector2(10, 6)
-texture = ExtResource("4_texture")
+[node name="GeminiGeneratedImageBlhdphblhdphblhd(2)" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(0.92903227, 0.874494)
+texture = ExtResource("3_m7vvj")
+region_enabled = true
+region_rect = Rect2(34, 0, 1240, 741)
 
-[node name="MouthOpen" type="Sprite2D" parent="."]
-modulate = Color(0.9, 0.5, 0.5, 1)
-position = Vector2(640, 360)
-scale = Vector2(6, 4)
-texture = ExtResource("4_texture")
-script = ExtResource("5_dropzone")
-valid_tools = Array[String](["Toothbrush"])
+[node name="clean_mouth" type="Sprite2D" parent="."]
+position = Vector2(266, 320.00003)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_43mlh")
 
-[node name="MouthOpen_Teeth_TeethZone1#Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 0.9, 1)
-scale = Vector2(1, 0.2)
-texture = ExtResource("4_texture")
+[node name="dirty_mouth" type="Area2D" parent="."]
+position = Vector2(266, 320)
+scale = Vector2(0.9, 0.9)
 
-[node name="MouthOpen_Teeth#TeethZone2" type="Area2D" parent="."]
-position = Vector2(0, 20)
-script = ExtResource("5_dropzone")
-valid_tools = Array[String](["Toothbrush"])
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="dirty_mouth"]
+sprite_frames = SubResource("SpriteFrames_nfsas")
 
-[node name="MouthOpen_Teeth_TeethZone2#Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 0.9, 1)
-scale = Vector2(0.8, 0.2)
-texture = ExtResource("4_texture")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dirty_mouth"]
+position = Vector2(8.888916, -14.7222595)
+shape = SubResource("RectangleShape2D_mouth")
 
-[node name="MouthOpen_Teeth_TeethZone2#CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(1, 0.2)
-shape = SubResource("RectangleShape2D_tool")
+[node name="toothpaste" type="Area2D" parent="."]
+position = Vector2(544, 352)
+scale = Vector2(0.5, 0.5)
 
-[node name="MouthOpen_Teeth_TeethZone2#Dirt" type="ColorRect" parent="."]
-offset_left = -50.0
-offset_top = -10.0
-offset_right = 50.0
-offset_bottom = 10.0
-color = Color(0.4, 0.3, 0.1, 0.8)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="toothpaste"]
+sprite_frames = SubResource("SpriteFrames_85b6l")
 
-[node name="Toothbrush" type="Area2D" parent="."]
-position = Vector2(200, 200)
-script = ExtResource("3_interactabletool")
-tool_name = "Toothbrush"
+[node name="CollisionShape2D" type="CollisionShape2D" parent="toothpaste"]
+position = Vector2(7, 37)
+shape = SubResource("RectangleShape2D_toothpaste")
 
-[node name="Sprite2D" type="Sprite2D" parent="Toothbrush"]
-modulate = Color(0.2, 0.2, 0.8, 1)
-texture = ExtResource("4_texture")
-script = ExtResource("5_dropzone")
-valid_tools = Array[String](["Toothpaste"])
+[node name="toothbrush" type="Area2D" parent="."]
+position = Vector2(1008, 448)
+scale = Vector2(0.5, 0.5)
 
-[node name="PasteVisual" type="ColorRect" parent="Toothbrush"]
-visible = false
-offset_left = -10.0
-offset_top = -30.0
-offset_right = 10.0
-offset_bottom = -10.0
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="toothbrush"]
+sprite_frames = SubResource("SpriteFrames_bnsu8")
 
-[node name="Toothbrush_Bristles#CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.5, 0.2)
-shape = SubResource("RectangleShape2D_tool")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="toothbrush"]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_toothbrush")
 
-[node name="Toothpaste" type="Area2D" parent="."]
-position = Vector2(200, 400)
-script = ExtResource("3_interactabletool")
-tool_name = "Toothpaste"
+[node name="Faucet" type="Area2D" parent="."]
+position = Vector2(664, 352)
+scale = Vector2(0.6, 0.6)
 
-[node name="Sprite2D" type="Sprite2D" parent="Toothpaste"]
-modulate = Color(1, 0.2, 0.2, 1)
-texture = ExtResource("4_texture")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Faucet"]
+sprite_frames = SubResource("SpriteFrames_m7vvj")
+animation = &"faucet_off"
 
-[node name="Cup" type="Area2D" parent="."]
-position = Vector2(1080, 500)
-script = ExtResource("5_dropzone")
-valid_tools = Array[String](["Toothbrush"])
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Faucet"]
+position = Vector2(25, 59.999985)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_kg31f")
 
-[node name="Sprite2D" type="Sprite2D" parent="Cup"]
-modulate = Color(0.2, 0.8, 0.9, 0.5)
-texture = ExtResource("4_texture")
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Faucet"]
+position = Vector2(152, 56)
+sprite_frames = SubResource("SpriteFrames_ncjpd")
+animation = &"faucet_impact"
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DialogueBox" parent="UI" instance=ExtResource("9_p6pjf")]
 
 [node name="ChecklistLabel" type="Label" parent="UI"]
 offset_left = 20.0
@@ -105,3 +280,108 @@ offset_top = 20.0
 offset_right = 200.0
 offset_bottom = 60.0
 text = "Level 3: Tooth Brushing"
+
+[node name="BrushingProgressBar" type="ProgressBar" parent="UI"]
+visible = false
+offset_left = 340.0
+offset_top = 40.0
+offset_right = 840.0
+offset_bottom = 80.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
+value = 50.0
+show_percentage = false
+
+[node name="CompletionModal" type="ColorRect" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Panel" type="Panel" parent="UI/CompletionModal"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -280.0
+offset_right = 350.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CompletionModal/Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="UI/CompletionModal/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.2, 1)
+theme_override_font_sizes/font_size = 40
+text = "🎉 Level Complete! 🎉"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MessageLabel" type="Label" parent="UI/CompletionModal/Panel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "🦷 Why Brushing Matters 🦷
+
+✅ Removes plaque and food particles
+✅ Prevents cavities and gum disease
+✅ Keeps your breath smelling fresh
+✅ Protects your beautiful smile!
+✅ Saves you from toothaches
+✅ Takes only 2 minutes, twice a day!
+
+📚 You've Mastered the Brushing Steps:
+1. Wet toothbrush
+2. Open toothpaste
+3. Apply toothpaste size of a pea
+4. Brush all teeth surfaces thoroughly
+5. Rinse and smile!
+
+🌟 Keep those pearly whites shining! 🌟"
+autowrap_mode = 3
+
+[node name="HSeparator2" type="HSeparator" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="NextLevelButton" type="Button" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Continue to Level 4"
+
+[node name="MenuButton" type="Button" parent="UI/CompletionModal/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Return to Main Menu"
+
+[node name="AudioPlayers" type="Node" parent="."]
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+autoplay = true
+
+[editable path="UI/DialogueBox"]

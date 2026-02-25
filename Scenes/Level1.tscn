@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bhlq41byt1dhj"]
+[gd_scene load_steps=41 format=3 uid="uid://bhlq41byt1dhj"]
 
 [ext_resource type="Script" uid="uid://bukxje3vc7qf2" path="res://Scripts/Level1.gd" id="1_level1_script"]
 [ext_resource type="Texture2D" uid="uid://rsac4txrl3yh" path="res://6621197f67-834e-c5a7-ec0a-d75ecfe61f.jpg" id="2_6ll4n"]
@@ -121,28 +121,49 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_soap"]
 radius = 18.823532
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2h8qs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpty4"]
 atlas = ExtResource("10_soap_hands")
 region = Rect2(0, 0, 912, 725)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rpty4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jj8j"]
 atlas = ExtResource("10_soap_hands")
 region = Rect2(912, 0, 912, 725)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6jj8j"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_06um6"]
 atlas = ExtResource("10_soap_hands")
 region = Rect2(1824, 0, 912, 725)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_06um6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1ws5"]
 atlas = ExtResource("10_soap_hands")
 region = Rect2(2736, 0, 912, 725)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yji5v"]
+atlas = ExtResource("10_soap_hands")
+region = Rect2(3648, 0, 912, 725)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulvkb"]
+atlas = ExtResource("10_soap_hands")
+region = Rect2(4560, 0, 912, 725)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fh0sh"]
+atlas = ExtResource("10_soap_hands")
+region = Rect2(5472, 0, 912, 725)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03od6"]
+atlas = ExtResource("10_soap_hands")
+region = Rect2(6384, 0, 912, 725)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_384de"]
+atlas = ExtResource("10_soap_hands")
+region = Rect2(7296, 0, 912, 725)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhaf5"]
+atlas = ExtResource("10_soap_hands")
+region = Rect2(8208, 0, 912, 725)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ubfni"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2h8qs")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rpty4")
 }, {
@@ -151,6 +172,27 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_06um6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1ws5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yji5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulvkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fh0sh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03od6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_384de")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhaf5")
 }],
 "loop": true,
 "name": &"rub_hands",
